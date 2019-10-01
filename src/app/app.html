@@ -1,0 +1,81 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-grid>
+        <ion-row>
+          <img src="assets/icon/horizontal-icon.png" style="width:100%;height:auto;">
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content padding>
+    <ion-list *ngIf="global.session">
+      <button menuClose ion-item detail-none>
+        <ion-icon item-start name="home"></ion-icon> Home
+      </button>
+
+      <button *ngIf="global.accessLevel==='Standard'" menuClose ion-item detail-none (click)="openPage(0)">
+        <ion-icon item-start name="paper-plane"></ion-icon> Report Fault
+      </button>
+      <button *ngIf="global.accessLevel==='Standard'" menuClose ion-item detail-none (click)="openPage(1)">
+        <ion-icon item-start name="stats"></ion-icon> Track Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Standard'" menuClose ion-item detail-none (click)="openPage(6)">
+        <ion-icon item-start name="chatboxes"></ion-icon> Forum
+      </button>
+
+      <button *ngIf="global.accessLevel==='Maintenance Foreman'" menuClose ion-item detail-none (click)="openPage(2)">
+        <ion-icon item-start name="people"></ion-icon> Users
+      </button>
+      <button *ngIf="global.accessLevel==='Maintenance Foreman'" menuClose ion-item detail-none (click)="openByMode(3,'Pending')">
+        <ion-icon item-start name="paper-plane"></ion-icon> New Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Maintenance Foreman'" menuClose ion-item detail-none (click)="openByMode(3,'Allocated')">
+        <ion-icon item-start name="timer"></ion-icon> Pending Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Maintenance Foreman'" menuClose ion-item detail-none (click)="openByMode(3,'Resolved')">
+        <ion-icon item-start name="checkmark"></ion-icon> Resolved Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Maintenance Foreman'" menuClose ion-item detail-none (click)="openPage(6)">
+        <ion-icon item-start name="chatboxes"></ion-icon> Forum
+      </button>
+
+      <button *ngIf="global.accessLevel==='Engineer'" menuClose ion-item detail-none (click)="openByMode(4,'Allocated')">
+        <ion-icon item-start name="paper-plane"></ion-icon> Pending Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Engineer'" menuClose ion-item detail-none (click)="openByMode(3,'Resolved')">
+        <ion-icon item-start name="checkmark"></ion-icon> Resolved Faults
+      </button>
+      <button *ngIf="global.accessLevel==='Engineer'" menuClose ion-item detail-none (click)="openPage(6)">
+        <ion-icon item-start name="chatboxes"></ion-icon> Forum
+      </button>
+
+
+      <ion-item-divider>Account</ion-item-divider>
+      <ion-item>
+        <ion-icon item-start name="contact"></ion-icon>
+        <h2><b>{{ global.session.fldforename }} {{ global.session.fldsurname }}</b></h2>
+        <hr/>
+        <h2>{{ global.session.fldphone_no }}</h2>
+      </ion-item>
+      <button menuClose ion-item detail-none (click)="openPage(5)">
+        <ion-icon item-start name="cog"></ion-icon> Settings</button>
+        <button *ngIf="global.session" menuClose ion-item detail-none (click)="logout()">
+          <ion-icon item-start name="log-out"></ion-icon> Logout</button>
+        </ion-list>
+        <ion-list *ngIf="!global.session">
+          <button menuClose ion-item detail-none (click)="openPage(5)">
+            <ion-icon item-start name="cog"></ion-icon> Settings</button>
+          </ion-list>
+        </ion-content>
+        <ion-footer padding>
+          <ion-label text-center>
+            Zimbabwe National Water Authority<br> App v.1.1.0
+          </ion-label>  
+        </ion-footer>
+      </ion-menu>
+
+      <!-- main navigation -->
+      <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+

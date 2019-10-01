@@ -1,0 +1,39 @@
+<!--
+  Generated template for the TrackFaultsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Track Faults</ion-title>
+	</ion-navbar>
+	<ion-toolbar no-border-top color="primary">
+		<ion-searchbar showCancelButton autocomplete="on" color="danger" (ionInput)="filterFaults($event)" placeholder="Filter Faults"></ion-searchbar>
+	</ion-toolbar>
+</ion-header>
+<ion-content padding class="card-background-page">
+	<ion-card *ngFor="let fault of faults">
+		<ion-item>
+			<ion-avatar item-start>
+				<img src="assets/icon/drop.png"/>
+			</ion-avatar>
+			<h2><b>{{ fault.fldfault_type }}</b></h2>
+			<p>{{ fault.fldstatus }}</p>
+			<button *ngIf="fault.fldstatus==='Pending'" color="secondary" (click)="edit(fault)" ion-button round outline item-end>
+				<ion-icon name="create" icon-start> Edit</ion-icon>
+			</button>
+		</ion-item>
+		<img src="{{ fault.fldpicture }}"/>
+		<ion-card-content><p>{{ fault.fldcomment }}</p></ion-card-content>
+		<!--ion-item>
+			<button color="danger" (click)="edit(fault)" icon-end block ion-button round outline>
+				<ion-icon name="create"> Edit</ion-icon>
+			</button>
+		</ion-item-->
+	</ion-card>
+	<ion-fab bottom right>
+		<button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
+	</ion-fab>
+</ion-content>
+

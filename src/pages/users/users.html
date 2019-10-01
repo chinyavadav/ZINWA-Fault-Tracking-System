@@ -1,0 +1,43 @@
+<!--
+  Generated template for the UsersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Users</ion-title>
+	</ion-navbar>
+	<ion-toolbar no-border-top color="primary">
+		<ion-searchbar showCancelButton autocomplete="on" color="primary" (ionInput)="filterUsers($event)" placeholder="Filter Users"></ion-searchbar>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item-sliding #item *ngFor="let user of users">
+			<ion-item >
+				<ion-avatar item-start>
+					<img src="assets/icon/user.png">
+				</ion-avatar>
+				<h2><b>{{ user.fldforename }} {{ user.fldsurname }}</b></h2>
+				<p><b>{{ user.fldphone_no }}</b><br>{{ user.fldaccess_level }}</p>
+				<button *ngIf="user.fldstatus==='Active'" color="secondary" ion-button round outline item-end>{{ user.fldstatus }}</button>
+				<button *ngIf="user.fldstatus!=='Active'" color="danger" ion-button round outline item-end>{{ user.fldstatus }}</button>
+			</ion-item>
+			<ion-item-options side="left">
+				<button *ngIf="global.session.flduser_id!==user.flduser_id" ion-button color="secondary" (click)="accessLevel(user)">
+					<ion-icon name="key"></ion-icon>Access Level
+				</button>
+			</ion-item-options>
+			<ion-item-options side="right">
+				<button *ngIf="user.fldstatus!=='Active' && global.session.flduser_id!==user.flduser_id" ion-button color="secondary" (click)="activate(user.flduser_id)">
+					<ion-icon name="checkmark"></ion-icon>Activate
+				</button>
+				<button *ngIf="user.fldstatus==='Active' && global.session.flduser_id!==user.flduser_id" ion-button color="primary" (click)="deactivate(user.flduser_id)">
+					<ion-icon name="close"></ion-icon>Deactivate
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>
