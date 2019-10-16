@@ -56,7 +56,7 @@ export class MyApp {
 
   setServerAddress(val){
     if(val==null){
-      this.global.serverAddress="http://localhost/zinwa/";
+      this.global.serverAddress="http://msudh.000webhostapp.com/zinwa/";
       this.storage.set("serverAddress",this.global.serverAddress);
     }else{
       this.global.serverAddress=val;

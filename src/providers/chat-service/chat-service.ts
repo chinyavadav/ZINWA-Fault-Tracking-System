@@ -49,8 +49,10 @@ export class ChatServiceProvider {
   }
 
   sendMsg(msg: ChatMessage) {
-    this.http.get(this.global.serverAddress+'api/message.php?from='+msg.fromUserId+"&message="+msg.message+"&type="+msg.type)
+    let message={"from":msg.fromUserId,"message":msg.message,"type":msg.type};
+    this.http.post(this.global.serverAddress+'api/message.php',JSON.stringify(message))
       .subscribe(data => {
+        console.log(data["_body"]);
         let response=JSON.parse(data["_body"]);
         console.log(response);
         if(response.response=="success"){
